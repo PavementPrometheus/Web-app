@@ -1,0 +1,192 @@
+/* import */
+@import url(../libraries/fontawesome-free-5.7.0-web/css/fontawesome.min.css);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,600,600italic);
+@import url(../libraries/bootstrap-4.0.0-dist/css/bootstrap.min.css);
+
+/*
+global:
+    gray: F1F4F9
+osu:
+    orange: D73F0A
+    dark gray: 252525
+*/
+
+/*
+    Gloabl 
+*/
+body {
+    background: #F1F4F9;
+}
+/* header */
+    /* logo hover effect */
+    #header .hovereffect {
+        float: left;
+        overflow: hidden;
+        position: relative;
+        text-align: center;
+        cursor: pointer;
+        margin-right: 5px;
+    }
+    #header .hovereffect .overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        transition: .5s ease;
+        background-color: #252525;
+    }
+    #header .hovereffect:hover .overlay {
+        opacity: 0.5;
+    }
+    #header .hovereffect img {
+        display: block;
+        position: relative;
+        -webkit-transition: all 0.4s ease-in;
+        transition: all 0.4s ease-in;
+    }
+    /* logo name hover effect */
+    #header nav a span:hover {
+        opacity: 0.5;
+        -webkit-transition: all 0.4s ease-in;
+        transition: all 0.4s ease-in;
+    }
+    /* menu button hover effect */
+    #header .navbar-dark .navbar-toggler-icon:hover {
+        background-color: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://ww…p='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+    /* menu list */
+     .overlay {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.9);
+        overflow-y: hidden;
+        transition: 0.5s;
+    }
+
+    .overlay-content {
+        position: relative;
+        top: 25%;
+        width: 100%;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .overlay a {
+        padding: 8px;
+        text-decoration: none;
+        font-size: 36px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .overlay a:hover,
+    .overlay a:focus {
+        color: #f1f1f1;
+    }
+
+    .overlay .closebtn {
+        position: absolute;
+        top: 20px;
+        right: 45px;
+        font-size: 60px;
+    }
+* {
+    box-sizing: border-box;
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+[class*="col-"] {
+    float: left;
+    padding: 15px;
+}
+#content {
+    margin: auto;
+    width: 95%;
+    margin-bottom: 2.5em;
+}
+#footer{
+    background: white;
+}
+    #footer .row {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    #footer .footer-copyright{
+        background: #252525;
+        color: white;
+    }
+        #footer .footer-copyright a{
+            color: white;
+        }
+.modal-content {
+    width: 100%;
+}
+    .modal-content .modal-header {
+        background: #F1F4F9;
+    }
+    .modal-content .modal-header .modal-title {
+        text-align: center;
+    }
+    .modal-content .modal-body img {
+        width: 100%;
+        background: black;
+    }
+
+/*
+    Home
+*/
+#home .col-sm-6 {
+    height: auto;
+}
+/*
+    For mobile phones:
+*/
+[class*="col-"] {
+    width: 100%;
+}
+  
+@media only screen and (min-width: 600px) {
+    /* For tablets: */
+    .col-s-1 {width: 8.33%;}
+    .col-s-2 {width: 16.66%;}
+    .col-s-3 {width: 25%;}
+    .col-s-4 {width: 33.33%;}
+    .col-s-5 {width: 41.66%;}
+    .col-s-6 {width: 50%;}
+    .col-s-7 {width: 58.33%;}
+    .col-s-8 {width: 66.66%;}
+    .col-s-9 {width: 75%;}
+    .col-s-10 {width: 83.33%;}
+    .col-s-11 {width: 91.66%;}
+    .col-s-12 {width: 100%;}
+}
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
+}
