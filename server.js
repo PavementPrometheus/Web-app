@@ -4,13 +4,31 @@
 // import libraries
 'use strict';
 var fs = require('fs'),
-  express = require('express'),
+  express    = require('express'),
   bodyParser = require('body-parser'),
-  path = require('path'),
-  sys  = require('util'),
-  app = express(),
-  server = require('http').createServer(app),
-  io = require('socket.io')(server);
+  path       = require('path'),
+  sys        = require('util'),
+  d3         = require('d3'), 
+  mongoose   = require('mongoose'),
+  app        = express(),
+  server     = require('http').createServer(app);
+
+// Database connection
+mongoose.connect('mongodb://localhost:27017/pavement');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+    console.log('Connected to Mongo database');
+});
+
+// Define the schema we're goong to use with mongoose
+var Schema = mongoose.Schema;
+var pavementSchema = new Schema({
+    _id: mongoose.SchemaTypes.ObjectId,
+    test1: String
+});
+// Create the model
+var Pavement = db.model('Pavement', pavementSchema, 'pavement');
 
 // can read JSON files from post requests
 app.use(bodyParser.urlencoded({
@@ -36,47 +54,31 @@ app.use('/', express.static(__dirname + '/public/'));
 
 // home page
 app.get('/', (req, res) => {
-  res.render('home');
+  res.render('index', { title: 'Home' });
 });
 
-// // info page
-// app.get('/info', (req, res) => {
-//   if(req.query.project in mappingProjectsIdxJSON){
-// 	  res.render('info', { 
-//                             projects: projectsJSON,
-//                             gpus: gpusJSON,
-//                             project: projectsJSON[mappingProjectsIdxJSON[req.query.project]],
-//                             page: "info"
-//                           });
-//   }
-//   else{
-// 	res.redirect('/');
-//   }
-// });
-
-// // info page post to demo page
-// app.post('/info', (req, res) => {
-// 	res.redirect('demo?project='+req.query.project+
-// 		'&session='+req.query.session+
-// 		'&gpu1='+req.body.gpu1+
-// 		'&gpu2='+req.body.gpu2+
-// 		'&gpu1Progress='+mappingGpusProgressJSON[req.body.gpu1+mappingProjectsIdxJSON[req.query.project]]+
-// 		'&gpu2Progress='+mappingGpusProgressJSON[req.body.gpu2+mappingProjectsIdxJSON[req.query.project]]
-// 	);
-// 	console.log(req.query.project);
-// 	console.log(req.query.session);
-// 	console.log(req.body.gpu1);
-// 	console.log(req.body.gpu2);
-// });
+// pavement data page
+app.get('/pavement', function(req, res) {
+  return Pavement.find({}, function (err, pavements) {
+    if(!err)
+    {
+      res.render('pavement', { 
+        title:'Pavement', 
+        pavements: pavements
+      });
+      console.log(pavements);
+    } else
+    {
+      res.redirect('/');
+      return console.log(err);
+    }
+  });
+});
 
 // when user try to access any other page, error webpage
 app.get('*', (req, res) => {
   res.render('404');
 });
-////////////////////////////////////////////////////////
-// WebSocket
-////////////////////////////////////////////////////////
-
 
 ////////////////////////////////////////////////////////
 // Running Server

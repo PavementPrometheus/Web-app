@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('includes/header') %>
+</head>
+<body>
+    <main class="main wrap">
+        <div class="container clear-top">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1><%-title%></h1>
+                </div>
+            </div><!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table">
+                      <tr>
+                        <th>test1</th>
+                        <th>_id</th>
+                      </tr>
+                    <% pavements.forEach(function(pavement) { %>
+                       <tr>
+                         <td><%= pavement.test1 %></td>
+                         <td><%= pavement._id %></td>
+                       </tr>
+                    <% }); %>
+                    </table>
+                </div>
+            </div><!-- /.row -->
+            <div class="row chart-container">
+                <svg class="svg-chart" width="960" height="500">
+                <!-- placeholder for the chart -->
+                </svg>
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </main>
+    <footer class="footer">
+        <%- include('includes/footer') %>
+    </footer>
+</body>
+</html>
