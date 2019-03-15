@@ -25,16 +25,16 @@ db.once('open', function callback () {
 var Schema = mongoose.Schema;
 var pavementSchema = new Schema({
     _id: mongoose.SchemaTypes.ObjectId,
-    test1: String
+    date: Number,
+    test: Number
 });
 // Create the model
 var Pavement = db.model('Pavement', pavementSchema, 'pavement');
 
-// can read JSON files from post requests
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+// Get json data from POST body
 app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // reading json files
 var currentPath = process.cwd();
