@@ -14,8 +14,27 @@
             <div id="chart" class="svg-container">
                 <!-- placeholder for the chart -->
             </div><!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table">
+                      <tr>
+                        <th>_id</th>
+                        <th>date</th>
+                        <th>cars</th>
+                      </tr>
+                    <% pavements.forEach(function(pavement) { %>
+                       <tr>
+                         <td><%= pavement._id %></td>
+                         <td><%= pavement.date %></td>
+                         <td><%= pavement.cars %></td>
+                       </tr>
+                    <% }); %>
+                    </table>
+                </div>
+            </div><!-- /.row -->
         </div><!-- /.container -->
     </main>
+
     <footer class="footer">
         <%- include('includes/footer') %>
     </footer>

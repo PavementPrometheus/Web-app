@@ -26,7 +26,7 @@ var Schema = mongoose.Schema;
 var pavementSchema = new Schema({
     _id: mongoose.SchemaTypes.ObjectId,
     date: Number,
-    test: Number
+    cars: Number
 });
 // Create the model
 var Pavement = db.model('Pavement', pavementSchema, 'pavement');
