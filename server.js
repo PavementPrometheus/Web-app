@@ -7,11 +7,13 @@ var fs = require('fs'),
   express    = require('express'),
   bodyParser = require('body-parser'),
   path       = require('path'),
-  sys        = require('util'),
+  sys        = require('util'), 
   d3         = require('d3'), 
   mongoose   = require('mongoose'),
+  moment     = require('moment'),
   app        = express(),
-  server     = require('http').createServer(app);
+  server     = require('http').createServer(app),
+  io         = require('socket.io')(server);
 
 // Database connection
 mongoose.connect('mongodb://localhost:27017/pavement');
@@ -85,4 +87,20 @@ app.get('*', (req, res) => {
 ////////////////////////////////////////////////////////
 server.listen(8080, () => {
   console.info('==> 🌎  Go to http://localhost:8080');
+});
+
+setInterval(function () {
+  Pavement.find({}, function (err, pavements) {
+    if(!err)
+    {
+      io.sockets.emit('data', pavements);
+    } else
+    {
+      return console.log(err);
+    }
+  });
+}, 5000);
+
+io.on('connection', function (socket) {
+  console.log('a user connected');
 });
