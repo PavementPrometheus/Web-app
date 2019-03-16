@@ -1,9 +1,12 @@
 ////////////////////////////////////////////////////////
 // Setup
 ////////////////////////////////////////////////////////
+// local constants
+const dataSize = 5;
+
 // import libraries
 'use strict';
-var fs = require('fs'),
+const fs = require('fs'),
   express    = require('express'),
   bodyParser = require('body-parser'),
   path       = require('path'),
@@ -11,9 +14,9 @@ var fs = require('fs'),
   d3         = require('d3'), 
   mongoose   = require('mongoose'),
   moment     = require('moment'),
-  app        = express(),
-  server     = require('http').createServer(app),
-  io         = require('socket.io')(server);
+  app        = express();
+var server = require('http').createServer(app),
+  io       = require('socket.io')(server);
 
 // Database connection
 mongoose.connect('mongodb://localhost:27017/pavement');
@@ -61,20 +64,27 @@ app.get('/', (req, res) => {
 
 // pavement data page
 app.get('/pavement', function(req, res) {
-  return Pavement.find({}, function (err, pavements) {
-    if(!err)
-    {
-      res.render('pavement', { 
-        title:'Pavement', 
-        pavements: pavements
-      });
-      console.log(pavements);
-    } else
-    {
-      res.redirect('/');
-      return console.log(err);
-    }
-  });
+  return Pavement.find()
+    .sort('-date')
+    .limit(dataSize) // Get the last dataSize number of elements
+    .select('date cars')
+    .exec(function (err, pavements) {
+      if(!err)
+      {
+        // Unfortunately, the result from the query is backwards.
+        // So we have to reverse it first
+        pavements = pavements.reverse();
+        res.render('pavement', { 
+          title:'Pavement', 
+          pavements: pavements
+        });
+        console.log(pavements);
+      } else
+      {
+        res.redirect('/');
+        return console.log(err);
+      }
+    });
 });
 
 // when user try to access any other page, error webpage
@@ -90,15 +100,22 @@ server.listen(8080, () => {
 });
 
 setInterval(function () {
-  Pavement.find({}, function (err, pavements) {
-    if(!err)
-    {
-      io.sockets.emit('data', pavements);
-    } else
-    {
-      return console.log(err);
-    }
-  });
+  Pavement.find()
+    .sort('-date')
+    .limit(dataSize) // Get the last dataSize number of elements
+    .select('date cars')
+    .exec(function (err, pavements) {
+      if(!err)
+      {
+        // Unfortunately, the result from the query is backwards.
+        // So we have to reverse it first
+        pavements = pavements.reverse();
+        io.sockets.emit('data', pavements);
+      } else
+      {
+        return console.log(err);
+      }
+    });
 }, 5000);
 
 io.on('connection', function (socket) {
