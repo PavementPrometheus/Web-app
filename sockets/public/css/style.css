@@ -1,0 +1,30 @@
+/* page format */
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#page {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#primary {
+  width: 100%;
+  height: 100%;
+}
+#live-feed {
+  float: left;
+  width: 100%;
+}
+#live-feed video {
+  min-width: 100%;
+  background: red;
+}
+#control-panel {
+  float: right;
+  min-width: 100%;
+}
+/* on and off button */
