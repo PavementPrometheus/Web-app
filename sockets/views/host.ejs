@@ -39,7 +39,8 @@
       function loadCam(stream)
       {
         var vendorUrl = window.URL || window.webkitURL;
-        video.src = vendorUrl.createObjectURL(stream);
+        video.srcObject=stream;
+        video.play();
         logger("WORKS!!!!");
       }
 

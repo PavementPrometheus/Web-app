@@ -12,14 +12,6 @@ app.set('port', process.env.PORT || 8080);
 
 var mode = ['switch', 'rate', 'move'];
 
-// reading json files
-//var currentPath = process.cwd();
-//var dataFolder = currentPath + '/data/';
-//var aboutJSON = JSON.parse(fs.readFileSync(dataFolder + 'about.json', 'utf8'));
-//var blogJSON = JSON.parse(fs.readFileSync(dataFolder + 'blog.json', 'utf8'));
-//var labJSON = JSON.parse(fs.readFileSync(dataFolder + 'lab.json', 'utf8'));
-//var cvJSON = JSON.parse(fs.readFileSync(dataFolder + 'cv.json', 'utf8'));
-
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
